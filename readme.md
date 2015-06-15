@@ -16,3 +16,7 @@ For more information on John Conway's Game of Life, see the [wikipedia entry](ht
 ## The HTML5/Javascript demonstration
 
 This code was created in order to demonstrate the OOP program capabilities of Russell Warner.
+
+## Live Demonstration
+
+This code is operating at [http://russellbits.com/labs/GameOfLife](http://russellbits.com/labs/GameOfLife)
