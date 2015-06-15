@@ -1,0 +1,58 @@
+body {
+	background-color: #333;
+}
+
+#title {
+	position: absolute;
+	top: 30px;
+	left: 30px;
+}
+
+#ui {
+	position: absolute;
+	top: 0; left: 0; bottom: 0; right: 0;
+	width: 496px;
+	height: 536px;
+	/* 	border: 1px solid green; */
+	margin: auto;
+}
+
+#board {
+	position: absolute;top:0;left:0;
+	width: 496px;
+	height: 496px;
+	background-color: #333;
+}
+
+#controls {
+	position: absolute;
+	top: 510px;
+	left: 0;
+	width: 496px;
+	margin: 0 auto 0;
+}
+
+.roundInput {
+	display: inline-block;
+}
+
+.roundLabel {
+	color: #fff;
+}
+
+.dead-cell {
+	display: inline-block;
+	width: 14px;
+	height: 14px;
+	background-color: #666;
+	margin: 0;
+	padding: 0;
+	border: 1px solid #aaa;
+}
+
+.live-cell {
+	display: inline-block;
+	width: 16px;
+	height: 16px;
+	background-color: #0576f9;
+}
