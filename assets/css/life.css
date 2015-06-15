@@ -26,10 +26,40 @@ body {
 	background-color: #333;
 }
 
-#title {
+#titleBack {
 	position: absolute;
-	top: 30px;
-	left: 30px;
+	top: 20px;
+	left: 20px;
+	background-color: #0576f9;
+	padding: 2px;
+}
+
+#titleBody {
+	color: #fff;
+	width: 240px;
+	height: 380px;
+	background-color: #0576f9;
+	padding: 10px;
+	border: 2px solid #333333;
+}
+
+#titleBody h1 {
+	font: 7em "Silkscreen","Helvetica",sans-serif;
+	text-align: center;
+	line-height: 0em;
+	margin-top: 0.5em;
+}
+
+#titleBody h2 {
+	font: 3em "Silkscreen","Helvetica",sans-serif;
+	text-align: center;
+	line-height: 0em;
+}
+
+#titleBody h3 {
+	font: 2em "Aleo", "Georgia", serif;
+	text-align: center;
+	line-height: 0em;
 }
 
 #ui {
@@ -79,4 +109,10 @@ body {
 	width: 16px;
 	height: 16px;
 	background-color: #0576f9;
+}
+
+@media only screen 
+	and (min-device-width : 320px) 
+	and (max-device-width : 568px) {
+	/* STYLES GO HERE */
 }
