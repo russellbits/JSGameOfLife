@@ -11,39 +11,52 @@
 
         <link rel="stylesheet" href="assets/css/normalize.css">
         <link rel="stylesheet" href="assets/css/buttons.css">
+        <link rel="stylesheet" href="assets/css/animate.css">
         <link rel="stylesheet" href="assets/css/life.css">
         <script src="assets/js/vendor/modernizr-2.8.3.min.js"></script>
 	</head>
     
     <body>
+	    <div id="ctrlPanel">
 	    
-	    <div id="titleBack">
-		    <div id="titleBody">
-		    	<h3>John Conway's</h3>
-		    	<h2>Game of</h2>
-		    	<h1>LIFE</h1>
-		    	<ol>
-			    	<li>Click on cells to make them alive.</li>
-			    	<li>Cells will obey rules to reproduce or die.</li>
-			    	<li>Set the number of rounds to simulate.</li>
-			    	<li>Press "Run Simulation"!</li>
-		    	</ol>			    	
+		    <div id="titleBack">
+			    <div id="titleBody">
+			    	<h3>John Conway's</h3>
+			    	<h2>Game of</h2>
+			    	<h1>LIFE</h1>
+			    	<ol>
+				    	<li>Click on cells to make them alive.</li>
+				    	<li>Cells will obey rules to reproduce or die.</li>
+				    	<li>Set the number of rounds to simulate.</li>
+				    	<li>Press "Run Simulation"!</li>
+			    	</ol>			    	
+			    </div>
 		    </div>
-	    </div>
-	    
-	    <div id="ui">
-	    	<div id="board"></div>
-			<div id="controls">
-				<div class="roundInput">
-					<span class="roundLabel">Rounds to simulate:</span>
-					<input id="rounds" type="text" size="5" value="30"/>
-				</div>
-				<input id="clear" type="button" class="button" value="Clear All Cells"/>
-				<input id="run" type="button" class="button" value="Run Simulation"/>
-			</div>
-	    </div>
+		    
+			<div id="ctrlBack">
+			    <div id="ctrlBody">
+			    	<h3>Controls</h3>
+			    	<div id="ui">
+						<div id="controls">
+							<div class="roundInput">
+								<span class="roundLabel">Rounds to simulate:</span>
+								<input id="rounds" type="text" size="5" value="30"/>
+							</div>
+							<input id="clear" type="button" class="button" value="Clear All Cells"/>
+							<input id="run" type="button" class="button" value="Run Simulation"/>
+						</div>
+				    </div>			    	
+			    </div>
+		    </div>
+		
+		</div>
+	
+		<div id="board"></div>
 	    
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+		<script src="assets/js/vendor/jquery-1.11.2.min.js"></script>
+		<script src="assets/js/vendor/jquery-transit-0.9.12.dev.js"></script>
+		
         <script>
 		$( document ).ready(function() {
 			
@@ -57,10 +70,29 @@
 			var maxCol = 31;
 			var maxRow = 31;
 			var cells = [];
+			var initDraw = 1;
 			var simulationLimit = function() {
 				return $('#rounds').val();
 			};
 			console.log(simulationLimit());
+			
+			// Set maximum for board size (Note: this may have to change for iPad
+			var boardHeight = $(window).height();
+			var boardWidth = boardHeight;
+			
+			// Set the board size and square sizes
+			$( '#board' ).css({
+							"top":"50px",
+							"left":"50px",
+							"height":boardHeight,
+							"width":boardWidth,
+							"margin":"0px auto",
+							"border":"1px solid green"
+							});
+			
+			// How to divide the above height and width by the col?
+			var squareHeight = (boardHeight-maxCol)/maxCol;
+			var squareWidth = (boardHeight-maxRow)/maxRow;
 			
 			/*
 			* Attach function to Run Simulation button 
@@ -104,24 +136,34 @@
 			$('#clear').on('click', function() {
 				console.log('The clear button has been pressed.');
 				clearCells();
-				init();
+				init(squareHeight,squareWidth);
 			});
 			
 			/*
 			* Initialization loop for creating cells
 			*/			
-			function init() {
+			function init(squareHeight,squareWidth) {
+				
+				initDraw = 1;
+				
 				for(i = 0; i < maxRow; i++) {
+				
 					for(j = 0; j < maxCol; j++) {
+				
 						cellID = j+'_'+i;
+				
 						cells[cellID] = new Cell(cellID,j,i);
-						cells[cellID].create();
+				
+						cells[cellID].create(squareHeight,squareWidth);
+				
 					}
+				
 				}
+			
 			}
 			
 			// Run once at load
-			init();
+			init(squareHeight,squareWidth);
 			
 			/*
 			* Removal function for clearing cells
@@ -166,21 +208,30 @@
 					return livingNeighbors;
 				};
 									
-				this.create = function() {
+				this.create = function(squareHeight, squareWidth) {
 					$('<div>', { 
 						id: this.id,
-						class: 'dead-cell',
+						class: 'cell dead-cell',
 						state: '0'})
+					.css({
+						"height":squareHeight,
+						"width":squareWidth,
+					})
 					.appendTo("#board")
 					.on('click', function() {
 						if($(this).attr('class') == 'dead-cell') {
-							$(this).removeClass('dead-cell');
-							$(this).addClass('live-cell');
+							
+							// become a live cell
+							$(this).removeClass('dead-cell').addClass('live-cell').addClass('animated').addClass('bounceIn');
+								
 							cells[$(this).attr('id')].state = 1;
 							cells[$(this).attr('id')].stateStr = 'alive';
+							
 						} else {
-							$(this).removeClass('live-cell');
-							$(this).addClass('dead-cell');
+							
+							// become a dead cell
+							$(this).removeClass('live-cell').addClass('dead-cell').addClass('animated').addClass('fadeIn');
+								
 							cells[$(this).attr('id')].state = 0;
 							cells[$(this).attr('id')].stateStr = 'dead';
 						}
@@ -190,13 +241,15 @@
 				
 				this.changeCellView = function() {
 					// console.log($(this));
+
 					if(this.state == 1) {
-						$('#'+this.id).addClass('live-cell');
-						$('#'+this.id).removeClass('dead-cell');
+						// draw a live cell
+						$('#'+this.id).removeClass('dead-cell').addClass('live-cell').addClass('animated').addClass('bounceIn');
 					} else {
-						$('#'+this.id).removeClass('live-cell');
-						$('#'+this.id).addClass('dead-cell');
+						// draw a dead cell
+						$('#'+this.id).removeClass('live-cell').addClass('dead-cell').addClass('animated').addClass('fadeIn');
 					}
+
 				};
 				
 				/* For debugging - console reports from cell objects
@@ -283,13 +336,32 @@
 				for(i = 0; i < maxRow; i++) {
 					for(j = 0; j < maxCol; j++) {
 						cellID = j+'_'+i;
-						cells[cellID].state = cells[cellID].nextState;
-						cells[cellID].changeCellView();
+						if(cells[cellID].state != cells[cellID].nextState) { // change in the cell
+							cells[cellID].state = cells[cellID].nextState;
+							cells[cellID].changeCellView();
+						}
 					}
 				}
 			}
 		// end jquery document ready
 		});
+// This would be nice to add later—a fullscreen version of the game
+/*		
+		// Find the right method, call on correct element
+		function launchFullScreen(element) {
+		if(element.requestFullScreen) {
+		element.requestFullScreen();
+		} else if(element.mozRequestFullScreen) {
+		element.mozRequestFullScreen();
+		} else if(element.webkitRequestFullScreen) {
+		element.webkitRequestFullScreen();
+		}
+		}
+		
+		// Launch fullscreen for browsers that support it!
+		launchFullScreen(document.documentElement); // the whole page
+		launchFullScreen(document.getElementById("videoElement")); // any individual element
+*/
 
 		</script>
 

@@ -26,10 +26,14 @@ body {
 	background-color: #333;
 }
 
-#titleBack {
+#ctrlPanel {
 	position: absolute;
-	top: 20px;
-	left: 20px;
+	top: 10px;
+	left: 10px;
+	width: 240px;
+}
+
+#titleBack {
 	background-color: #0576f9;
 	padding: 2px;
 }
@@ -62,53 +66,103 @@ body {
 	line-height: 0em;
 }
 
+
+
+/* * * * * * * * * * * * * * * *
+ *
+ *    Control elements
+ *
+ * * * * * * * * * * * * * * * *
+ */
+
+
 #ui {
+	/* 	
 	position: absolute;
 	top: 0; left: 0; bottom: 0; right: 0;
 	width: 496px;
 	height: 536px;
-	/* 	border: 1px solid green; */
+	border: 1px solid green;
 	margin: auto;
+	*/
 }
 
-#board {
-	position: absolute;top:0;left:0;
-	width: 496px;
-	height: 496px;
-	background-color: #333;
+#ctrlBack {
+	background-color: #0576f9;
+	padding: 2px;
 }
 
 #controls {
-	position: absolute;
-	top: 510px;
-	left: 0;
-	width: 496px;
-	margin: 0 auto 0;
+	position: relative;
+	top: 0px;
+	left: 0px;
+	width: 196px;
+	padding-left: 0;
 }
 
-.roundInput {
+#ctrlBody {
+	color: #fff;
+	background-color: #0576f9;
+	padding: 10px;
+	border: 2px solid #333333;
+}
+
+#ctrlBody h3 {
+	font: 2em "Aleo", "Georgia", serif;
+	text-align: center;
+	line-height: 0em;
+	padding: 0px
+}
+
+#controls .roundInput {
 	display: inline-block;
 }
 
-.roundLabel {
+#controls .roundLabel {
+	display: block;
 	color: #fff;
+	padding: 10px;
+	padding-left: 0;
 }
 
-.dead-cell {
+#controls input[type=text] {
+	padding: 10px;
+	padding-left: 0;
+	margin: 10px;
+	margin-left: 0px;
+}
+
+#controls input[type=button]#clear {
+	padding: 10px;
+	margin: 10px 0px 0px 0px;
+	background-color: fuchsia;
+}
+
+#controls input[type=button]#run {
+	padding: 10px;
+	margin: 10px 0px 0px 0px;
+	background-color: #0066dd;
+}
+
+#board { }
+
+.cell {
 	display: inline-block;
 	width: 14px;
 	height: 14px;
-	background-color: #666;
+	background-color: #333333;
 	margin: 0;
 	padding: 0;
-	border: 1px solid #aaa;
+	border-top: 1px solid #999;
+	border-left: 1px solid #999;
+}
+
+.dead-cell {
+	background-color: #0576f9;
 }
 
 .live-cell {
-	display: inline-block;
-	width: 16px;
-	height: 16px;
-	background-color: #0576f9;
+	background-color: #fa05e5;
 }
 
 @media only screen 
