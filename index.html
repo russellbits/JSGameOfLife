@@ -205,13 +205,14 @@
 						}
 					}
 					
+					console.log('Returning living neighbor count: ' + livingNeighbors)
 					return livingNeighbors;
 				};
 									
 				this.create = function(squareHeight, squareWidth) {
 					$('<div>', { 
 						id: this.id,
-						class: 'cell dead-cell',
+						class: 'cell',
 						state: '0'})
 					.css({
 						"height":squareHeight,
@@ -219,19 +220,27 @@
 					})
 					.appendTo("#board")
 					.on('click', function() {
-						if($(this).attr('class') == 'dead-cell') {
-							
+						if($(this).attr('class') == 'cell') {
+							console.log('You clicked on an empty cell');
+							// start a live cell
+							// temp removed animations
+							$(this).removeClass('dead-cell').addClass('live-cell');
+							cells[$(this).attr('id')].state = 1
+							cells[$(this).attr('id')].stateStr = 'alive'
+						
+						} else if($(this).attr('class') == 'cell dead-cell') {	
+							console.log('You brought a dead cell to life!');
 							// become a live cell
-							$(this).removeClass('dead-cell').addClass('live-cell').addClass('animated').addClass('bounceIn');
-								
+							$(this).removeClass('dead-cell').addClass('live-cell');	
 							cells[$(this).attr('id')].state = 1;
 							cells[$(this).attr('id')].stateStr = 'alive';
 							
 						} else {
-							
+							console.log('You killed a living cell!');
 							// become a dead cell
-							$(this).removeClass('live-cell').addClass('dead-cell').addClass('animated').addClass('fadeIn');
-								
+							// temp removed animations
+							// $(this).removeClass('live-cell').addClass('dead-cell').addClass('animated').addClass('fadeIn');
+							$(this).removeClass('live-cell').addClass('dead-cell');	
 							cells[$(this).attr('id')].state = 0;
 							cells[$(this).attr('id')].stateStr = 'dead';
 						}
@@ -240,14 +249,20 @@
 				};
 				
 				this.changeCellView = function() {
-					// console.log($(this));
+					console.log($(this));
 
 					if(this.state == 1) {
 						// draw a live cell
-						$('#'+this.id).removeClass('dead-cell').addClass('live-cell').addClass('animated').addClass('bounceIn');
+						// temp removed animations
+						// $('#'+this.id).removeClass('dead-cell').addClass('live-cell').addClass('animated').addClass('bounceIn');
+						console.log('Live!');
+						$('#'+this.id).removeClass('dead-cell').addClass('live-cell');
 					} else {
 						// draw a dead cell
-						$('#'+this.id).removeClass('live-cell').addClass('dead-cell').addClass('animated').addClass('fadeIn');
+						// temp removed animations
+						// $('#'+this.id).removeClass('live-cell').addClass('dead-cell').addClass('animated').addClass('fadeIn');
+						console.log('Die!');
+						$('#'+this.id).removeClass('live-cell').addClass('dead-cell');
 					}
 
 				};
@@ -332,11 +347,13 @@
 			}
 			
 			// Helper function for looping through all cells and updating their alive/dead state
-			function updateCells() {			
+			function updateCells() {
+				console.log('Updating cells')
 				for(i = 0; i < maxRow; i++) {
 					for(j = 0; j < maxCol; j++) {
 						cellID = j+'_'+i;
 						if(cells[cellID].state != cells[cellID].nextState) { // change in the cell
+							console.log('Change in cell state detected.')
 							cells[cellID].state = cells[cellID].nextState;
 							cells[cellID].changeCellView();
 						}

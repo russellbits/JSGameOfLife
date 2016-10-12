@@ -126,6 +126,7 @@ body {
 }
 
 #controls input[type=text] {
+	color: #333;
 	padding: 10px;
 	padding-left: 0;
 	margin: 10px;
