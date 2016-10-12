@@ -1,11 +1,11 @@
 $( document ).ready(function() {
 	
 	/*
-	* Primarty variable describing
-	*     the board (number of columns and rows)
-	*     an array holding all created cell objects
-	*     a limit on how many rounds to run
-	*     a global counter for tracking rounds
+	* Primarty variables describing
+	*   the board (number of columns and rows)
+	*   an array holding all created cell objects
+	*   a limit on how many rounds to run
+	*   a global counter for tracking rounds
 	*/
 	var maxCol = 31;
 	var maxRow = 31;
@@ -14,7 +14,6 @@ $( document ).ready(function() {
 	var simulationLimit = function() {
 		return $('#rounds').val();
 	};
-	console.log(simulationLimit());
 	
 	// Set maximum for board size (Note: this may have to change for iPad
 	var boardHeight = $(window).height();
