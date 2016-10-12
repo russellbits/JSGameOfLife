@@ -145,7 +145,10 @@ body {
 	background-color: #0066dd;
 }
 
-#board { }
+#board {
+	padding: 0px;
+	margin: 0px;
+}
 
 .cell {
 	display: inline-block;
