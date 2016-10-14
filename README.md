@@ -20,3 +20,11 @@ This code was created in order to demonstrate the OOP program capabilities of Ru
 ## Live Demonstration
 
 This code is operating at [http://russellbits.com/labs/GameOfLife](http://russellbits.com/labs/GameOfLife)
+
+## Some Goals
+1. Separate command functions out from GOL simulation itself
+2. Make it so that any div can have GOL attached to it and the default is no controls, just some basic randomized patterns that repeat
+3. Animations for individual cells
+4. The ability to insert particular organisms via JSON
+5. Object config you can insert into GOL, like cell size vs board size
+6. Themes—stylesheets that give different looking boards
