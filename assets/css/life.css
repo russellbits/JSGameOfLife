@@ -88,6 +88,9 @@ body {
 }
 
 #ctrlBack {
+	position: absolute;
+	top: 0px;
+	right: 0px;
 	background-color: #0576f9;
 	padding: 2px;
 }

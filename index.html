@@ -33,29 +33,33 @@
 			    </div>
 		    </div>
 		    
-			<div id="ctrlBack">
-			    <div id="ctrlBody">
-			    	<h3>Controls</h3>
-			    	<div id="ui">
-						<div id="controls">
-							<div class="roundInput">
-								<span class="roundLabel">Rounds to simulate:</span>
-								<input id="rounds" type="text" size="5" value="30"/>
-							</div>
-							<input id="clear" type="button" class="button" value="Clear All Cells"/>
-							<input id="run" type="button" class="button" value="Run Simulation"/>
-						</div>
-				    </div>			    	
-			    </div>
-		    </div>
-		
 		</div>
+		    
+		<div id="ctrlBack">
+		    <div id="ctrlBody">
+		    	<h3>Controls</h3>
+		    	<div id="ui">
+					<div id="controls">
+						<div class="roundInput">
+							<span class="roundLabel">Rounds to simulate:</span>
+							<input id="rounds" type="text" size="5" value="30"/>
+						</div>
+						<input id="clear" type="button" class="button" value="Clear All Cells"/>
+						<input id="run" type="button" class="button" value="Run Simulation"/>
+					</div>
+			    </div>			    	
+		    </div>
+	    </div>
+		
+		
 	
 		<div id="board"></div>
 	    
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
 		<script src="assets/js/vendor/jquery-1.11.2.min.js"></script>
 		<script src="assets/js/vendor/jquery-transit-0.9.12.dev.js"></script>
+        <script src="assets/js/cell.js"></script>
+        <script src="assets/js/controls.js"></script>
         <script src="assets/js/game_of_life.js"></script>
 
     </body>
