@@ -1,0 +1,39 @@
+<!doctype html5>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title></title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="apple-touch-icon" href="apple-touch-icon.png">
+
+        <link rel="stylesheet" href="assets/css/normalize.css">
+        <link rel="stylesheet" href="assets/css/buttons.css">
+        <link rel="stylesheet" href="assets/css/animate.css">
+        <link rel="stylesheet" href="assets/css/life.css">
+        <script src="assets/js/vendor/modernizr-2.8.3.min.js"></script>
+	</head>
+    
+    <body>
+		
+		<div id="board"></div>
+	    
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+		<script src="assets/js/vendor/jquery-1.11.2.min.js"></script>
+		<script src="assets/js/vendor/jquery-transit-0.9.12.dev.js"></script>
+        <script src="assets/js/cell.js"></script>
+        <script src="assets/js/controls.js"></script>
+        <script src="assets/js/gol-plugin.js"></script>
+        <!-- <script src="assets/js/game_of_life.js"></script> -->
+        <script>
+	        $('#board').golboard({
+		        backgroundColor: "#e3a1ff",
+		        gridSize: 10,
+		        cellSize: 16
+	        });
+        </script>
+
+    </body>
+</html>
