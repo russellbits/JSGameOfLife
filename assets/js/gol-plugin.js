@@ -9,7 +9,10 @@
             gridSize: 12, // this is NOT pixel size; this is grid size
             cellSize: 12,
             injectCreature: true,
-            creatureDesc: {height: 10, width: 10, creature: [[0,0,1],[0,1,0],[0,0,1]]}
+            creatureDesc: {top: 2, left: 2, creature: [[1,1,1]]},
+            runSimBtnID: '#runSimBtn',
+            clrSimBtnID: '#clrSimBtn',
+            simRounds: 20
         }, options );
 		
 		// The second settings.gridSize compensates for cell borders
@@ -42,7 +45,52 @@
 		
 		if(settings.injectCreature) {
 			// settings.creatureDesc
+			var creature = settings.creatureDesc
+			console.log(creature.top)
 			cells['1_1'].changeCellView()
+		}
+		
+		/**
+		 * Interactive functions (UI)
+		 **/
+		$(settings.runSimBtnID).click(function(event) {
+			console.log('Run simulation activated')
+			event.preventDefault()
+			runSimulation(settings.simRounds)
+		});
+		
+		$(settings.clrSimBtnID).click(function(event) {
+			console.log('Clearing the simulation')
+			event.preventDefault()
+			clearCells()
+		});
+		
+		function runSimulation(roundCount) {
+	
+			setTimeout(function() {
+				if (roundCount++ < 30) {
+					setCellsNextState()
+					updateCells()
+					runSimulation(roundCount)
+				} else {
+					console.log("Stopping simulation.")
+					$(settings.runSimBtnID).css({backgroundColor: '#0576f9'})
+					$(settings.runSimBtnID).val('Run Simulation')
+			}
+			}, 300) // milliseconds between re-draws
+		
+		}
+		
+		/*
+		 * Removal function for clearing cells
+		 */
+		function clearCells() {
+			for(i = 0; i < maxRow; i++) {
+				for(j = 0; j < maxCol; j++) {
+					cellID = '#'+j+'_'+i
+					$(cellID).remove()
+				}
+			}
 		}
 
 		/*
@@ -168,6 +216,48 @@
 		
 			}
 			
+		}
+		
+		// Helper function for cells to apply rules for Game of Life
+		// Note: Other automata rules can be applied here for different
+		//       simulations, a la Wolfram rules
+		function setCellsNextState() {			
+			for(i = 0; i < maxRow; i++) {
+				for(j = 0; j < maxCol; j++) {
+					cellID = j+'_'+i
+					cellHealth = cells[cellID].livingNeighborCount();
+					// console.log(cellID + ' health: ' + cellHealth);
+					// if statement to check cell's health
+					if(cells[cellID].state == 1) {
+						if(cellHealth < 2) {
+							cells[cellID].nextState = 0
+						} else if(cellHealth == 2 || cellHealth == 3) {
+							cells[cellID].nextState = 1
+						} else if(cellHealth > 3) {
+							cells[cellID].nextState = 0
+						}	
+					} else {
+						if(cellHealth == 3) {
+							cells[cellID].nextState = 1
+						}
+					}
+				}
+			}
+		}
+		
+		// Helper function for looping through all cells and updating their alive/dead state
+		function updateCells() {
+			console.log('Updating cells')
+			for(i = 0; i < maxRow; i++) {
+				for(j = 0; j < maxCol; j++) {
+					cellID = j+'_'+i;
+					if(cells[cellID].state != cells[cellID].nextState) { // change in the cell
+						console.log('Change in cell state detected.')
+						cells[cellID].state = cells[cellID].nextState
+						cells[cellID].changeCellView()
+					}
+				}
+			}
 		}
  
     };
