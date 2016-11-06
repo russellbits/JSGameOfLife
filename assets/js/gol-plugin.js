@@ -9,7 +9,7 @@
             gridSize: 12, // this is NOT pixel size; this is grid size
             cellSize: 12,
             injectCreature: true,
-            creatureDesc: {top: 2, left: 2, creature: [[1,1,1]]},
+            creatureDesc: {top: 2, left: 3, creature: [[1,1,1],[1,0,1]]},
             runSimBtnID: '#runSimBtn',
             clrSimBtnID: '#clrSimBtn',
             simRounds: 20
@@ -44,10 +44,20 @@
 		}
 		
 		if(settings.injectCreature) {
-			// settings.creatureDesc
-			var creature = settings.creatureDesc
-			console.log(creature.top)
-			cells['1_1'].changeCellView()
+			// what cell are we starting with?
+			var top = settings.creatureDesc.top
+			var left = settings.creatureDesc.left
+			// loop through the 2 dimensional array describing the creature
+			console.log(settings.creatureDesc.creature.length)
+			for(i = 0; i < settings.creatureDesc.creature.length; i++) {
+				for(j = 0; j < settings.creatureDesc.creature[i].length; j++) {
+					console.log('into the loop')
+					cellString = (i+top) +'_'+ (j+left)
+					console.log(cellString)
+					cells[cellString].state = settings.creatureDesc.creature[i][j]
+					cells[cellString].changeCellView()		
+				}
+			}
 		}
 		
 		/**
