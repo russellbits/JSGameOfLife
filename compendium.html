@@ -13,14 +13,22 @@
         <link rel="stylesheet" href="assets/css/buttons.css">
         <link rel="stylesheet" href="assets/css/animate.css">
         <link rel="stylesheet" href="assets/css/life.css">
+        <link rel="stylesheet" href="assets/css/house.css">
         <script src="assets/js/vendor/modernizr-2.8.3.min.js"></script>
 	</head>
     
     <body>
 		
-		<div id="board"></div>
-		<button id="runSimBtn">Run Simulation</button>
-		<button id="clrSimBtn">Clear Simulation</button>
+		<div class="container">
+			<div id="board1"></div>
+			<button id="runSimBtn1">Run Simulation</button>
+			<button id="clrSimBtn1">Clear Simulation</button>
+		</div>
+		<div class="container">
+			<div id="board2"></div>
+			<button id="runSimBtn2">Run Simulation</button>
+			<button id="clrSimBtn2">Clear Simulation</button>
+		</div>
 
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
 		<script src="assets/js/vendor/jquery-1.11.2.min.js"></script>
@@ -30,10 +38,19 @@
         <script src="assets/js/gol-plugin.js"></script>
         <!-- <script src="assets/js/game_of_life.js"></script> -->
         <script>
-	        $('#board').golboard({
+	        $('#board1').golboard({
 		        backgroundColor: "#e3a1ff",
 		        gridSize: 10,
-		        cellSize: 16
+		        cellSize: 16,
+		        runSimBtnID: '#runSimBtn1',
+		        clrSimBtnID: '#clrSimBtn1'
+	        });
+	        $('#board2').golboard({
+		        backgroundColor: "#e3a1ff",
+		        gridSize: 14,
+		        cellSize: 19,
+		        runSimBtnID: '#runSimBtn2',
+		        clrSimBtnID: '#clrSimBtn2'
 	        });
         </script>
 

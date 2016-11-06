@@ -76,7 +76,7 @@
 		});
 		
 		function runSimulation(roundCount) {
-	
+			console.log('Running simulation...')
 			setTimeout(function() {
 				if (roundCount++ < 30) {
 					setCellsNextState()
